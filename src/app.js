@@ -2,7 +2,7 @@ const express = require('express');
 
 const app = express();
 
-app.use("/a",(req,res)=>{
+app.use("/aaa",(req,res)=>{
     res.send("main")
 })
 
