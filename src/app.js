@@ -1,31 +1,22 @@
-const express = require('express');
+const  express = require('express');
 
 const app = express();
 
 
+app.use("/user",(req,res,next)=>{
+    console.log("connceted to 1 st")
+    // res.send("1 st responce!!")
+    next();
+ 
+},(req,res,next)=>{
+    console.log("connceted to 2 st")
+    // res.send("2 st responce!!")
+    next();
 
-
-app.get("/user",(req,res)=>{
-    res.send({name:"jinto",place:"mandalam"})
-});
-
-app.post("/user",(req,res)=>{
-    res.send("succefully added to DB")
-});
-
-app.delete("/user",(req,res)=>{
-    res.send("deleted")
-});
-
-app.patch("/user",(req,res)=>{
-    res.send("updated the user info")
-});
-app.use("/user",(req,res)=>{
-    res.send('jkhomepage')
-});
-
-app.use("/aa",(req,res)=>{
-    res.send('jkhomepage')
+},(req,res,next)=>{
+    console.log("connceted to 3 st")
+    res.send("3 st responce!!")
+    
 });
 
 
