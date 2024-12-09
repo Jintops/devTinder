@@ -1,25 +1,29 @@
-const  express = require('express');
+const express = require('express');
 
 const app = express();
 
+const { adminAuth,userAuth } = require("./middlewares/auth")
 
-app.use("/user",(req,res,next)=>{
-    console.log("connceted to 1 st")
-    // res.send("1 st responce!!")
-    next();
- 
-},(req,res,next)=>{
-    console.log("connceted to 2 st")
-    // res.send("2 st responce!!")
-    next();
+app.use("/admin",adminAuth)
 
-},(req,res,next)=>{
-    console.log("connceted to 3 st")
-    res.send("3 st responce!!")
+
+app.get("/user/login", (req, res, next) =>{
+    res.send("user login")
+} );
+
+app.get("/user/register",userAuth, (req, res, next) => { 
+    res.send("user regiter")
+    });
     
+app.get("/admin/login", (req, res, next) =>{
+    res.send("admin login")
+});
+
+app.get("/admin/register", (req, res, next) => { 
+res.send("admin regiter")
 });
 
 
-app.listen(3000,()=>{
+app.listen(3000, () => {
     console.log('successfully connected to port')
 });
