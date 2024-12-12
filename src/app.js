@@ -43,11 +43,26 @@ app.get("/feed",async(req,res)=>{
   }
 })
 
+//delete the document
 app.delete("/user",async(req,res)=>{
   const userId=req.body.userId
   try{
      const user = await User.findByIdAndDelete(userId);
      res.send('user delted successfully')
+  }catch(err){
+    res.status(400).send('something went wrong')
+  }
+})
+
+//update the document
+app.patch("/user",async(req,res)=>{
+  const emailId=req.body.emailId;
+  const user= req.body
+  console.log(emailId)
+
+  try{
+      await User.findOneAndUpdate({emailId:emailId},user)
+      res.send("user updated successfully")
   }catch(err){
     res.status(400).send('something went wrong')
   }
