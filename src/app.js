@@ -61,10 +61,10 @@ app.patch("/user",async(req,res)=>{
   console.log(emailId)
 
   try{
-      await User.findOneAndUpdate({emailId:emailId},user)
+      await User.findOneAndUpdate({emailId:emailId},user,{runValidators:true})
       res.send("user updated successfully")
   }catch(err){
-    res.status(400).send('something went wrong')
+    res.status(400).send('issue in user update'+err.message)
   }
 })
 
