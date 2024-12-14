@@ -12,7 +12,7 @@ app.post("/signup",async (req,res)=>{
   await user.save();
   res.send("user data successfully saved")
  } catch(err){
-  res.status(400).send("error in saving data")
+  res.status(400).send("error in saving data"+err.message)
  }
 })
 
@@ -55,16 +55,26 @@ app.delete("/user",async(req,res)=>{
 })
 
 //update the document
-app.patch("/user",async(req,res)=>{
-  const emailId=req.body.emailId;
-  const user= req.body
-  console.log(emailId)
+app.patch("/user/:userId",async(req,res)=>{
+  const userId=req.params?.userId;
+  const data= req.body
+  // console.log(emailId)
 
   try{
-      await User.findOneAndUpdate({emailId:emailId},user,{runValidators:true})
+    const ALLOWED_UPDATE = ["photoUrl", "gender", "age", "skills", "about"];
+
+    // Check if all keys in the user object are allowed for update
+    const isUpdateAllowed = Object.keys(data).every((k) =>
+      ALLOWED_UPDATE.includes(k)
+    );
+
+    if (!isUpdateAllowed) {
+      throw new Error("Update not allowed");
+    }
+      await User.findOneAndUpdate({userId:userId},data,{runValidators:true})
       res.send("user updated successfully")
   }catch(err){
-    res.status(400).send('issue in user update'+err.message)
+    res.status(400).send('issue in user update, '+err.message)
   }
 })
 
