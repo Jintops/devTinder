@@ -8,7 +8,7 @@ Install express
 
 Create a server
 
-Listen to port 7777
+Listen to port 3000
 
 Write request handlers for /test , /hello
 
