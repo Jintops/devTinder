@@ -3,9 +3,14 @@ const connectDB = require('./config/database')
 const User = require("./models/user");
 const {validateSignUpDate}=require('./utils/validation')
 const bcrypt=require('bcrypt')
+const cookieParser=require('cookie-parser')
+const jwt=require('jsonwebtoken')
+const {userAuth}=require('./middlewares/auth')
 const app = express();
 
 app.use(express.json());
+app.use(cookieParser())
+
 
 app.post("/signup",async (req,res)=>{
   try{
@@ -38,6 +43,9 @@ app.post("/login",async (req,res)=>{
     }
     const isPasswordValid=await bcrypt.compare(password,user.password)
     if(isPasswordValid){
+
+      const token=jwt.sign({_id:user._id},"DEV@Tinder$790", { expiresIn: '1h' })
+      res.cookie("token",token, { expires: new Date(Date.now() + 900000)});
       res.send("login success!!!!")
     }else{
       throw new Error("Invalid credential")
@@ -45,46 +53,26 @@ app.post("/login",async (req,res)=>{
   }catch(err){
     res.status(400).send("ERROR :"+err.message)
    }
- 
-})
-
-app.get("/user",async (req,res)=>{
- 
-  try{
-    const user =await User.find({emailId:req.body.emailId}); 
-   if(user.length===0){
-    res.send("no user with this")
-   }else{
-    res.send(user)
-   }
- 
-}catch(err){
-  res.status(400).send('something went wrong')
-}
   
 })
 
-app.get("/feed",async(req,res)=>{
+app.get("/profile", userAuth ,async(req,res)=>{
   try{
-
-  const user = await User.find({})
-  res.send(user);    
-}
-  catch(err){
-    res.status(400).send('something went wrong')
-  }
-})
-
-//delete the document
-app.delete("/user",async(req,res)=>{
-  const userId=req.body.userId
-  try{
-     const user = await User.findByIdAndDelete(userId);
-     res.send('user delted successfully')
+  
+  const user=req.user
+  res.send(user)
   }catch(err){
-    res.status(400).send('something went wrong')
-  }
+    res.status(400).send("ERROR :"+err.message)
+   }
 })
+
+app.post("/sendConnectionRequest",userAuth,async(req,res)=>{
+
+  console.log('sending connection request')
+   res.send('connection request sent')
+})
+
+
 
 //update the document
 app.patch("/user/:userId",async(req,res)=>{ 
