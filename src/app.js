@@ -5,7 +5,8 @@ const {validateSignUpDate}=require('./utils/validation')
 const bcrypt=require('bcrypt')
 const cookieParser=require('cookie-parser')
 const jwt=require('jsonwebtoken')
-const {userAuth}=require('./middlewares/auth')
+const {userAuth}=require('./middlewares/auth');
+const { isPassportNumber } = require('validator');
 const app = express();
 
 app.use(express.json());
@@ -41,10 +42,10 @@ app.post("/login",async (req,res)=>{
     if(!user){
       throw new Error("Invalid credential")
     }
-    const isPasswordValid=await bcrypt.compare(password,user.password)
+    const isPasswordValid=await user.validatePassword(password)
     if(isPasswordValid){
 
-      const token=jwt.sign({_id:user._id},"DEV@Tinder$790", { expiresIn: '1h' })
+      const token=await user.getJWT();
       res.cookie("token",token, { expires: new Date(Date.now() + 900000)});
       res.send("login success!!!!")
     }else{
