@@ -30,7 +30,16 @@ const validateEditProfileDate = (req) => {
   };
   
 
+  const validatePassword=(req)=>{
+    const {password}=req.body;
+    if(!validator.isStrongPassword(password)){
+      throw new Error('Please enter a strong password')
+  }
+  }
+
 module.exports={
     validateSignUpDate,
-   validateEditProfileDate
+   validateEditProfileDate,
+   validatePassword
 }
+
