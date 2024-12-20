@@ -46,7 +46,6 @@ profileRouter.patch("/profile/editpassword", userAuth, async (req, res) => {
    
     const passwordHash = await bcrypt.hash(password, 10)
     
-    console.log("kdfk")
     await User.findOneAndUpdate({ _id: req.user._id }, { password: passwordHash })
     res.send("user password updated");
   } catch (err) {
