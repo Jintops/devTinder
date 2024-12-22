@@ -36,7 +36,6 @@ authRouter.post("/login",async (req,res)=>{
       }
       const isPasswordValid=await user.validatePassword(password)
       if(isPasswordValid){
-  
         const token=await user.getJWT();
         res.cookie("token",token, { expires: new Date(Date.now() + 900000)});
         res.send("login success!!!!")
@@ -45,8 +44,7 @@ authRouter.post("/login",async (req,res)=>{
       }
     }catch(err){
       res.status(400).send("ERROR :"+err.message)
-     }
-    
+     } 
   })
 
 authRouter.post("/logout",async(req,res)=>{
