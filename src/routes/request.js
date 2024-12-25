@@ -70,6 +70,7 @@ requestRouter.post("/request/review/:status/:requestId",userAuth,async(req,res)=
     if(!connectionRequest){
       return res.status(400).json({message:"connection  failed"})
     }
+    
    connectionRequest.status=status;
    const data= await connectionRequest.save();
    
