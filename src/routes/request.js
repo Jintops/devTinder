@@ -75,7 +75,6 @@ requestRouter.post("/request/review/:status/:requestId",userAuth,async(req,res)=
    const data= await connectionRequest.save();
    
    res.json({message: status +"request",data})
-
   }catch(err){
     res.status(400).send("message :" +err.message)
   }
