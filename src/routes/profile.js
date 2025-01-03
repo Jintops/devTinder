@@ -32,7 +32,7 @@ profileRouter.get("/profile/view", userAuth ,async(req,res)=>{
 
     await user.save();
 
-    res.send(`${user.firstName} profile updated successfully......`)
+    res.json({message:`${user.firstName} profile updated successfully......`,data:user,})
   }catch(err){
      res.status(400).send("ERROR :"+err.message)
   }

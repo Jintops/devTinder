@@ -3,7 +3,7 @@ const { userAuth } = require('../middlewares/auth');
 const userRouter= express.Router();
 const ConnectionRequest=require("../models/connectionRequest")
 const User=require("../models/user")
-const USER_DATA="firstName lastName age gender skills";
+const USER_DATA="firstName lastName age gender skills about photoUrl";
 
 userRouter.get("/user/requests/received",userAuth,async(req,res)=>{
     try{
@@ -21,16 +21,13 @@ userRouter.get("/user/requests/received",userAuth,async(req,res)=>{
         
         res.json({message: "connection requests", data: connectionRequests,})
 
-        
     }catch(err){
         res.status(400).json("Error : "+err.message)
     }
 })
 
-
 userRouter.get("/user/connections",userAuth,async(req,res)=>{
-    try{
-    
+    try{  
   const loggedInUser=req.user;
 
   const connectionRequests=await ConnectionRequest.find({
@@ -39,8 +36,7 @@ userRouter.get("/user/connections",userAuth,async(req,res)=>{
         {toUserId:loggedInUser._id,status:"accepted" }
     ]
   }).populate('fromUserId',USER_DATA).populate('toUserId',USER_DATA);
-
-    
+  
   if (!connectionRequests || connectionRequests.length === 0) {
     return res.status(404).json({ message: "No connection requests found" });
 }
@@ -52,12 +48,13 @@ const data=connectionRequests.map((row)=>{
     return row.fromUserId
 })
 
-
-  res.json({message: "your connections",data})
+ res.json({message: "your connections",data})
     }catch(err){
         res.status(400).json("Error : "+err.message)
     }
 })
+
+
 
 userRouter.get("/feed",userAuth,async(req,res)=>{
     try{  

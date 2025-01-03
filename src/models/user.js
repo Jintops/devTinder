@@ -54,7 +54,7 @@ const userSchema = new mongoose.Schema({
     },
     photoUrl:{
         type:String,
-        default:"https://www.iconfinder.com/icons/1988458/dummy_human_mannequin_user_account_blank_face_profile_icon"
+        default:"https://cdn-icons-png.flaticon.com/512/149/149071.png"
     },
     about:{
         type:String,
