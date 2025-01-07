@@ -42,7 +42,7 @@ userRouter.get("/user/connections",userAuth,async(req,res)=>{
 }
   
 const data=connectionRequests.map((row)=>{
-    if(row.fromUserId.toString()===loggedInUser._id){
+    if (row.fromUserId._id.toString() === loggedInUser._id.toString()){
         return row.toUserId
     }
     return row.fromUserId
