@@ -7,7 +7,7 @@ const User = require("../models/user");
 
 authRouter.post("/signup", async (req, res) => {
   try {
-    const { firstName, lastName, emailId, password } = req.body;
+    const { firstName, emailId, password } = req.body;
 
     validateSignUpDate(req)
 
@@ -15,7 +15,6 @@ authRouter.post("/signup", async (req, res) => {
 
     const user = new User({
       firstName,
-      lastName,
       emailId,
       password: passwordHash
     })

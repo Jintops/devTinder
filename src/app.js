@@ -6,6 +6,8 @@ const profileRouter = require('./routes/profile')
 const requestRouter = require('./routes/request');
 const userRouter = require('./routes/user');
 const cors = require('cors')
+require('dotenv').config()
+
 
 const app = express();
 app.use(cors({
@@ -13,7 +15,7 @@ app.use(cors({
   credentials: true,
 
 }));
-app.use(express.json()); a
+app.use(express.json()); 
 app.use(cookieParser())
 
 app.use('/', authRouter);
@@ -49,7 +51,7 @@ app.use('/', userRouter);
 
 connectDB().then(() => {
   console.log("database connected successfully....")
-  app.listen(3000, () => {
+  app.listen(process.env.PORT, () => {
     console.log('successfully connected to port')
   });
 
