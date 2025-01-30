@@ -14,11 +14,10 @@ authRouter.post("/signup", async (req, res) => {
     const passwordHash = await bcrypt.hash(password, 10)
 
     const user = new User({
-      firstName,
+      firstName, 
       emailId,
       password: passwordHash
     })
-
 
     const signData = await user.save();
     const token = await signData.getJWT();
