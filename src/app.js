@@ -51,7 +51,7 @@ app.use('/', userRouter);
 
 connectDB().then(() => {
   console.log("database connected successfully....")
-  app.listen(7777, () => {
+  app.listen(3000, () => {
     console.log('successfully connected to port')
   });
 
