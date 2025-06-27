@@ -56,7 +56,7 @@ connectDB().then(() => {
   });
 
 }).catch((err) => {
-  console.error("connection failed")
+  console.error(" db connection failed")
 });
 
 
