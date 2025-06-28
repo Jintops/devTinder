@@ -42,11 +42,20 @@ userRouter.get("/user/connections", userAuth, async (req, res) => {
     }
 
     const data = connectionRequests.map((row) => {
-      if (row.fromUserId._id.toString() === loggedInUser._id.toString()) {
-        return row.toUserId;
-      }
-      return row.fromUserId;
-    });
+  if (
+    row.fromUserId &&
+    row.toUserId &&
+    row.fromUserId._id &&
+    row.toUserId._id
+  ) {
+    if (row.fromUserId._id.toString() === loggedInUser._id.toString()) {
+      return row.toUserId;
+    }
+    return row.fromUserId;
+  }
+  return null;
+}).filter(Boolean); // remove null entries
+
 
     res.json({ message: "your connections", data });
   } catch (err) {
