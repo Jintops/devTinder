@@ -51,7 +51,7 @@ app.use('/', userRouter);
 
 connectDB().then(() => {
   console.log("database connected successfully....")
-  app.listen(3000, () => {
+  app.listen(process.env.PORT, () => {
     console.log('successfully connected to port')
   });
 
