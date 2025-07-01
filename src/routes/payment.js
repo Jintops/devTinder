@@ -64,12 +64,13 @@ await payment.save();
 
 const user=await User.findOne({_id:payment.userId})
 user.isPremium=true;
-user.membershipType=payment.notes.membershipType
+user.membershipType=payment.notes.membershipType;
+await user.save();
 
-if(req.body.event=="payment.captured"){
-}
-if(req.body.event=="payment.failed"){  
-}
+// if(req.body.event=="payment.captured"){
+// }
+// if(req.body.event=="payment.failed"){  
+// }
 
 return res.status(400).json({msg:"webhook received successfully"}) 
 
