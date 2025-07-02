@@ -9,8 +9,8 @@ const requestRouter = require('./routes/request');
 const userRouter = require('./routes/user');
 const cors = require('cors');
 const paymentRouter = require('./routes/payment');
-require('dotenv').config()
-
+const http=require('http')
+const initilizeSocket=require("./utils/socket")
 
 const app = express();
 app.use(cors({
@@ -29,33 +29,12 @@ app.use('/',paymentRouter);
 
 
 
-//update the document
-// app.patch("/user/:userId",async(req,res)=>{ 
-//   const userId=req.params?.userId;
-//   const data= req.body
-//   // console.log(emailId)
-
-//   try{
-//     const ALLOWED_UPDATE = ["photoUrl", "gender", "age", "skills", "about"];
-
-//     // Check if all keys in the user object are allowed for update
-//     const isUpdateAllowed = Object.keys(data).every((k) =>
-//       ALLOWED_UPDATE.includes(k)
-//     );
-
-//     if (!isUpdateAllowed) {
-//       throw new Error("Update not allowed");
-//     }
-//       await User.findOneAndUpdate({userId:userId},data,{runValidators:true})
-//       res.send("user updated successfully")
-//   }catch(err){
-//     res.status(400).send('issue in user update, '+err.message)
-//   }
-// })
+const server=http.createServer(app)
+initilizeSocket(server);
 
 connectDB().then(() => {
   console.log("database connected successfully....")
-  app.listen(process.env.PORT, () => {
+  server.listen(process.env.PORT, () => {
     console.log('successfully connected to port')
   });
 
