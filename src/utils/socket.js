@@ -25,7 +25,7 @@ const initilizeSocket = (server) => {
 
     socket.on(
       "sendMessage",
-      async ({ firstName, userId, targetUserId, text }) => {
+      async ({ firstName,lastName, userId, targetUserId, text }) => {
         //save message in database
 
         try {
@@ -49,7 +49,7 @@ const initilizeSocket = (server) => {
           });
           await chat.save();
  // finished database setup
-          io.to(roomId).emit("messageReceiver", { firstName, text });
+          io.to(roomId).emit("messageReceiver", { firstName,lastName, text });
         } catch (err) {
           console.log(err);
         }
