@@ -12,7 +12,7 @@ const messageSchema=new mongoose.Schema({
         required:true
     },
 
-},{timeseries:true})
+},{timestamps:true})
 
 
 const chatSchema=new mongoose.Schema({
@@ -21,5 +21,5 @@ const chatSchema=new mongoose.Schema({
 })
 
 
-const chat=mongoose.Model("Chat",chatSchema)
-module.exports=chat;
+const Chat=mongoose.model("Chat",chatSchema)
+module.exports={Chat};
