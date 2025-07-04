@@ -32,6 +32,8 @@ const initilizeSocket = (server) => {
           const roomId = getSecretRoomId(userId, targetUserId);
           console.log(firstName + ": " + text);
 
+          
+
           //from here we are implementing database storing query
           let chat = await Chat.findOne({
             participants: { $all: [userId, targetUserId] },
