@@ -25,14 +25,12 @@ const initilizeSocket = (server) => {
 
     socket.on(
       "sendMessage",
-      async ({ firstName,lastName, userId, targetUserId, text }) => {
+      async ({ firstName, lastName, userId, targetUserId, text }) => {
         //save message in database
 
         try {
           const roomId = getSecretRoomId(userId, targetUserId);
           console.log(firstName + ": " + text);
-
-          
 
           //from here we are implementing database storing query
           let chat = await Chat.findOne({
@@ -50,8 +48,8 @@ const initilizeSocket = (server) => {
             text,
           });
           await chat.save();
- // finished database setup
-          io.to(roomId).emit("messageReceiver", { firstName,lastName, text });
+          // finished database setup
+          io.to(roomId).emit("messageReceiver", { firstName, lastName, text });
         } catch (err) {
           console.log(err);
         }
