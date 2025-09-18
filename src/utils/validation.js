@@ -16,7 +16,7 @@ const validateSignUpDate = (req) => {
 const validateEditProfileDate = (req) => {
   const allowedUpdate = [
     "firstName",
-    "lastName",
+    "location",
     "age",
     "gender",
     "about",

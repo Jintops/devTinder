@@ -3,7 +3,7 @@ const { userAuth } = require("../middlewares/auth");
 const userRouter = express.Router();
 const ConnectionRequest = require("../models/connectionRequest");
 const User = require("../models/user");
-const USER_DATA = "firstName lastName age gender skills about photoUrl";
+const USER_DATA = "firstName location age gender skills about photoUrl";
 
 userRouter.get("/user/requests/received", userAuth, async (req, res) => {
   try {
@@ -57,7 +57,6 @@ userRouter.get("/user/connections", userAuth, async (req, res) => {
 userRouter.get("/feed", userAuth, async (req, res) => {
   try {
     const loggedInUser = req.user;
-
     const page = parseInt(req.query.page) || 1;
     let limit = parseInt(req.query.limit) || 10;
     limit = limit > 50 ? 50 : limit;

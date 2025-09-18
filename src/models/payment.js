@@ -34,9 +34,7 @@ const paymentSchema = new mongoose.Schema(
       firstName: {
         type: String,
       },
-      lastName: {
-        type: String,
-      },
+    
       membershipType: {
         type: String,
       },

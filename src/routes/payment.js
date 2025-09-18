@@ -13,7 +13,7 @@ const User = require("../models/user");
 paymentRouter.post("/payment/create", userAuth, async (req, res) => {
   try {
     const { membershipType } = req.body;
-    const { firstName, lastName, emailId } = req.user;
+    const { firstName,  emailId } = req.user;
 
     const order = await razorpayInstance.orders.create({
       amount: membershipAmount[membershipType] * 100,
@@ -21,7 +21,7 @@ paymentRouter.post("/payment/create", userAuth, async (req, res) => {
       receipt: "receipt#1",
       notes: {
         firstName,
-        lastName,
+        
         emailId,
         membershipType: membershipType,
       },
