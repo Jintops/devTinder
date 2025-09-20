@@ -15,6 +15,8 @@ const initilizeSocket = (server) => {
     origin: [
       "http://localhost:5173",
       "https://dev-tinder-frontend-sigma.vercel.app",
+      "https://www.dev-tinder-frontend-sigma.vercel.app",
+
       
     ],
     methods: ["GET", "POST"],
@@ -23,7 +25,11 @@ const initilizeSocket = (server) => {
   path: "/api/socket.io",
 });
 
+
+
+
   io.on("connection", (socket) => {
+     console.log("New socket connected:", socket.id);
     socket.on("joinChat", ({ userId, targetUserId }) => {
       const roomId = getSecretRoomId(userId, targetUserId);
       console.log("joing roomh: " + roomId);
