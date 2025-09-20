@@ -15,10 +15,11 @@ const chatRouter = require('./routes/chat');
 
 const app = express();
 app.use(cors({
-  origin: [
-    "http://localhost:5173",
-    "https://dev-tinder-frontend-sigma.vercel.app"
-  ],
+  origin:
+   
+    "https://dev-tinder-frontend-sigma.vercel.app",
+     methods: ['GET', 'POST', 'PATCH'],
+
   credentials: true,
 }));
 
