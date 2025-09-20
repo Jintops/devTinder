@@ -26,8 +26,6 @@ const initilizeSocket = (server) => {
 });
 
 
-
-
   io.on("connection", (socket) => {
      console.log("New socket connected:", socket.id);
     socket.on("joinChat", ({ userId, targetUserId }) => {
