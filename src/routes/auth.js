@@ -23,7 +23,13 @@ authRouter.post("/signup", async (req, res) => {
 
     const signData = await user.save();
     const token = await signData.getJWT();
-    res.cookie("token", token, { expires: new Date(Date.now() + 900000) });
+    // In your login route
+res.cookie("token", token, {
+    expires: new Date(Date.now() + 8 * 3600000), // 8 hours
+    httpOnly: true,
+    secure: true, // Important for HTTPS
+    sameSite: 'none' // Important for cross-origin
+});
     res.json({ message: "user data successfully saved", data: signData })
   } catch (err) {
     res.status(400).send("ERROR :" + err.message)
@@ -40,7 +46,13 @@ authRouter.post("/login", async (req, res) => {
     const isPasswordValid = await user.validatePassword(password)
     if (isPasswordValid) {
       const token = await user.getJWT();
-      res.cookie("token", token, { expires: new Date(Date.now() + 900000) });
+     // In your login route
+res.cookie("token", token, {
+    expires: new Date(Date.now() + 8 * 3600000), // 8 hours
+    httpOnly: true,
+    secure: true, // Important for HTTPS
+    sameSite: 'none' // Important for cross-origin
+});
       res.send(user)
     } else {
       throw new Error("Invalid Credential")
