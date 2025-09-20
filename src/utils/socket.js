@@ -11,9 +11,10 @@ const getSecretRoomId = (userId, targetUserId) => {
 
 const initilizeSocket = (server) => {
   const io = socket(server, {
-    cors: {
-      origin: "http://localhost:5173",
-    },
+    origin: [
+        "http://localhost:5173",
+        "https://dev-tinder-frontend-sigma.vercel.app",
+      ],
   });
   io.on("connection", (socket) => {
     socket.on("joinChat", ({ userId, targetUserId }) => {
