@@ -15,12 +15,14 @@ const chatRouter = require('./routes/chat');
 
 const app = express();
 app.use(cors({
-  origin:
-   
+  origin: [
     "https://dev-tinder-frontend-sigma.vercel.app",
-     methods: ['GET', 'POST', 'PATCH'],
-
+    "http://localhost:3000", // for local development
+    "http://localhost:5173"  // if using Vite
+  ],
   credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'Cookie']
 }));
 
 app.use(express.json()); 
