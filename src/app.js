@@ -24,7 +24,9 @@ app.use(cors({
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization', 'Cookie']
 }));
-
+app.get('/api/test', (req, res) => {
+  res.json({ message: 'CORS test successful' });
+});
 app.use(express.json()); 
 app.use(cookieParser());
 
